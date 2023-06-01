@@ -45,7 +45,7 @@ export const fetchPancakeData = async () => {
         +ps.liquidity,
       ]);
 
-      return [...acc, { pool_id: +ps.id, t1_amount, t2_amount }];
+      return [...acc, { pool_id: +ps.id, t1_amount, t2_amount, t1_deposit: +ps.depositedToken0, t2_deposit: +ps.depositedToken1 }];
     }, []);
 
     await knex("history").insert(dataToInsert);
