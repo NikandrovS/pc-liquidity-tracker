@@ -7,12 +7,11 @@ export default () => {
 };
 
 const query =
-  "\nquery positionHistory($pageSize: Int!, $owner: String!) {\n  positions(\n    where: {owner: $owner, liquidity_gt: 1}\n  ) {\n    id\n    liquidity\n    pool {\n      tick\n      feeGrowthGlobal0X128\n      feeGrowthGlobal1X128\n    }\n    tickLower {\n      tickIdx\n      feeGrowthOutside0X128\n      feeGrowthOutside1X128\n    }\n    tickUpper {\n\t\t\ttickIdx\n      feeGrowthOutside0X128\n      feeGrowthOutside1X128\n    }\n    feeGrowthInside0LastX128\n    feeGrowthInside1LastX128\n  }\n}";
+  "\nquery positionHistory($pageSize: Int!, $owner: String!) {\n  positions(\n    where: {owner: $owner, liquidity_gt: 1}\n  ) {\n    id\n    liquidity\ndepositedToken0\n depositedToken1\n    pool {\n      tick\n      feeGrowthGlobal0X128\n      feeGrowthGlobal1X128\n    }\n    tickLower {\n      tickIdx\n      feeGrowthOutside0X128\n      feeGrowthOutside1X128\n    }\n    tickUpper {\n\t\t\ttickIdx\n      feeGrowthOutside0X128\n      feeGrowthOutside1X128\n    }\n    feeGrowthInside0LastX128\n    feeGrowthInside1LastX128\n  }\n}";
 
 const formula = ([g, ol, ou, i, l]) => (((g - ol - ou - i) / 2 ** 128) * l) / (1 * 10 ** 18);
 
 export const fetchPancakeData = async () => {
-  console.log("in");
   try {
     const { data } = await axios({
       method: "POST",
